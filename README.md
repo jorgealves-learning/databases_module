@@ -1,3 +1,8 @@
+
+> [!IMPORTANT]
+> The content of this file was co-authored with Claude Code. It helped me write this content with given restricted guidelines. 
+> Please open a PR or reach out to me if you find any error or missing piece or simply for any type of feedback.
+
 # Databases Module
 
 Module 11 of the Web Programming course (PW 25/27). 19 sessions of 3 hours, 57 hours in total.
@@ -53,8 +58,9 @@ These projects show the tutorial, not the exercise. Your exercise answers still 
 ## Submitting exercises
 
 - Each exercise goes in `exercises/NN-topic/` in your fork, using the folder name given in each session below.
-- Commit and push before the start of the next session. Work pushed after that is treated as not submitted.
-- Challenges are optional. Put them in a `challenge/` folder inside the exercise folder.
+- Commit and push before the end of the last session day (session 19).
+- Challenges are MANDATORY.
+- Please be clear when you put your exercise and challlenge files. Ensure that its easy to see which are from the exercise and the ones from the challenge
 
 Each of the 16 exercises (sessions 01 to 16) is marked 0 (not submitted), 1 (incomplete or with relevant errors) or 2 (complete and correct).
 
@@ -161,14 +167,10 @@ To classify a use case, ask: must this data never be lost or contradicted? Is it
 Folder: `exercises/01-diagnosis/README.md`
 
 1. A screenshot of `docker compose ps` with the three engines healthy.
-2. The data model of your Project I: list of tables and relationships.
+2. The data model of your database: list of tables and relationships.
 3. Three concrete problems in that model (for example duplicated data, a missing constraint, a field that should be a table, a price calculated on read), with the file and line where each one is.
 4. What would happen with 100,000 records, or with two users writing at the same time.
 5. Would any of the data be better in MongoDB or Redis? Why?
-
-If you do not have a Project I, use booking-lite or, with permission, a colleague's project.
-
-Marked 2 when all five points are answered with examples from the actual code.
 
 ### Challenge
 
@@ -262,8 +264,6 @@ The requirements for a municipal library are in the exercise folder: readers, bo
 3. One denormalisation you would make and why, or why you would make none.
 
 You will implement this model in exercise 03.
-
-Group project: read the common brief and your group's scenario, and list your questions.
 
 ### Challenge
 
@@ -370,10 +370,6 @@ Folder: `exercises/03-ddl/`
 
 1. `schema.sql`, runnable on an empty PostgreSQL database, implementing your library model from exercise 02. Include at least one `CHECK`, one composite `UNIQUE`, and one foreign key whose `ON DELETE` is justified in a comment.
 2. `invalid.sql` with 5 `INSERT` statements that must fail, each with a comment naming the constraint that rejects it.
-
-Marked 2 when the schema runs without errors and the 5 invalid inserts fail for the stated reason.
-
-Group project: first version of the group's ER model (Mermaid in the README), reviewed by the trainer.
 
 ### Challenge
 
@@ -486,10 +482,6 @@ Time the same load with one `INSERT` per row to see the difference.
 Folder: `exercises/04-crud/queries.sql`
 
 12 operations on Pagila, with the expected result (row count or value) given in the brief. Examples: films rated `PG-13` and longer than 120 minutes sorted by title; customers with no rentals in the last year; update the rental rate of one category using `RETURNING`; upsert an actor; delete test payments after checking the `WHERE` first.
-
-Marked 2 for 11 or 12 correct, 1 for 6 to 10.
-
-Group project: complete DDL for your scenario and start the seed with volume.
 
 ### Challenge
 
@@ -671,10 +663,6 @@ Folder: `exercises/05-queries/queries.sql`
 
 10 business questions on Pagila. Examples: revenue per category per month; top 5 customers per store; films never rented; pairs of actors who appeared in more than 3 films together (self join); customers who spend more than the average of their city.
 
-Marked 2 for 9 or 10 correct, 1 for 5 to 8.
-
-Group project: finish the seed with the scenario's volume. Milestone M1 closes at the end of this session.
-
 ### Challenge
 
 Using a recursive CTE (`WITH RECURSIVE`), compute the "degrees of separation" between actors: two actors are at distance 1 if they appeared in the same film. Given one actor, list every actor reachable within 3 degrees and the shortest distance to each. Make sure the query terminates and does not revisit actors.
@@ -760,10 +748,6 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY daily_rentals;
 Folder: `exercises/06-window/queries.sql`
 
 Top 3 films per category (ties handled); cumulative revenue per day; change compared with the previous month; each customer's position in their store's ranking; a materialised view of monthly revenue with refresh.
-
-Marked 2 when all are correct and ties are handled.
-
-Group project: at least 6 business queries for your scenario in `docs/queries.md`, each with the question it answers.
 
 ### Challenge
 
@@ -859,10 +843,6 @@ Compare the time with and without the indexes. Record each case as: query, plan 
 Folder: `exercises/07-indexes/README.md`
 
 The script in the exercise folder creates a 2-million-row rental table. For each of the 5 queries: plan before, index created, plan after, times, and one sentence explaining the difference. Not every query can be fixed with an index; when one cannot, prove it with the plans and explain why.
-
-Marked 2 when all 5 have evidence and any case an index cannot fix is correctly identified.
-
-Group project: three slow queries from your scenario, the indexes you created, and before/after measurements in `docs/optimisation.md`.
 
 ### Challenge
 
@@ -980,10 +960,6 @@ Folder: `exercises/08-transactions/`
 3. Cause a deadlock and explain the PostgreSQL message.
 4. Write skew. Rule: every store keeps at least one active staff member. Add staff so that store 1 has 20 active members. A Python script sends 20 simultaneous requests, each deactivating a different member after checking the count of active staff. Show the rule broken under `READ COMMITTED`, then fix it with `SERIALIZABLE` and retries, and prove that exactly one member stays active.
 
-Marked 2 when all four points are done and the script proves the result.
-
-Group project: the critical transactions of your scenario in SQL, and the first version of the concurrency test in `tests/concurrency/`.
-
 ### Challenge
 
 Build a job queue in PostgreSQL: a `job` table, a producer that inserts 10,000 jobs, and 8 worker processes that claim jobs with `SELECT ... FOR UPDATE SKIP LOCKED LIMIT 1`, process them and mark them done. Prove that every job was processed exactly once. Then kill a worker halfway through a job and show what happens to that job.
@@ -1098,10 +1074,6 @@ Folder: `exercises/09-security/`
 2. The mini-API in `exercises/09-security/vulnerable-api/` is vulnerable to SQL injection. Run it locally, document the payload that exploits it, and fix the code.
 3. A Redis ACL user that can `GET` and `SET` but cannot `FLUSHALL`.
 
-Marked 2 when all three points have proof.
-
-Group project: PostgreSQL roles, MongoDB and Redis users, review of all queries and secrets, `docs/security.md`.
-
 ### Challenge
 
 Add row-level security to Pagila so that a connection can only see the rentals and payments of one customer. The application sets the customer with `SET app.customer_id = '42'` at the start of each request, and the policy uses `current_setting('app.customer_id')`. Prove that a query without a `WHERE` returns only that customer's rows, and that the `app` role cannot bypass the policy.
@@ -1184,10 +1156,6 @@ A runbook entry should include: when to use it, prerequisites, exact commands, h
 Folder: `exercises/10-backup/runbook.md`
 
 At the start, back up your Pagila. Halfway through, the trainer runs a script that deletes data from 3 tables. Recover the data and document: the commands used, the measured restore time, what was lost between the backup and the disaster (real RPO), and what you would change in your strategy.
-
-Marked 2 when the data is recovered and the runbook is clear enough for someone else to follow.
-
-Group project: backup and restore of your scenario's PostgreSQL. Milestone M2 closes at the end of this session.
 
 ### Challenge
 
